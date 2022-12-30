@@ -1,21 +1,21 @@
-
+// Initiate number of rounds for the game
 const roundsToPlay = 5;
+// Initiate scores for the players
 let playerScore = 0;
 let computerScore = 0;
+// Set up possible options to choose in the game
+let gameOptions = ['rock', 'paper', 'scissors'];
 
 game();
 
 function getComputerChoice() {
-    // Create options for computer to choose from using array.
-    let computerOptions = ['rock', 'paper', 'scissors'];
-    
-    // Randomize the integer value from 0-3 which indexes the array, which depicts the computer's choice.
+    // Randomize the integer value from 0-3 which indexes the rock paper scissors options array, which depicts the computer's choice.
     // This is done by multiplying the random number (0-1) by 3, which gets us a random number from 0-3 instead. CODE: (Math.random() * 3)
     // Then we round the random number by the nearest LOWER integer. Example, 2.9 rounds to 2. CODE: (Math.floor())
     let computerInteger = Math.floor(Math.random() * 3);
 
     // Extract the computer's choice by indexing.
-    let computerChoice = computerOptions[computerInteger];
+    let computerChoice = gameOptions[computerInteger];
     console.log(`The computer's choice is: ${computerChoice}`);
 
     // Return the computer's choice.
@@ -24,9 +24,6 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    // Make playerSelection case insensitive by converting to lower case.
-    playerSelection = playerSelection.toLowerCase();
-
     // Create logic to choose who wins the rock paper scissors game.
     // For each victory, add the points to the respective player.
     if (playerSelection === 'rock') {
@@ -68,9 +65,19 @@ function playRound(playerSelection, computerSelection) {
 // Function that simulate a game of a specified number of rounds.
 function game() {
     // Loop through the specified number of rounds.
-    for(let i=0; i<roundsToPlay; i++){
+    for (let i=0; i<roundsToPlay; i++) {
         // Get player's selection.
-        const playerSelection = 'rock';
+        let playerSelection = prompt('What is your choice?');
+        // Make playerSelection case insensitive by converting to lower case.
+        playerSelection = playerSelection.toLowerCase();
+        // Ensure proper input by the player. If the playerSelection is NOT IN the gameOptions, continue the while loop.
+        while (!gameOptions.includes(playerSelection)) {
+            // NOTE NOT TO DECLARE THE VARIABLE AGAIN (i.e. let playerSelection ...)!! I made that mistake which bugged the whole programme.
+            playerSelection = prompt('Please choose rock, paper or scissors only!');
+            // Convert selection to lower case again so that the while loop conditions can be met.
+            playerSelection = playerSelection.toLowerCase();
+        }
+        // Print out player's choice.
         console.log(`The player's choice is ${playerSelection}`)
         // Get computer's selection.
         const computerSelection = getComputerChoice();
