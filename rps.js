@@ -67,14 +67,14 @@ function game() {
     // Loop through the specified number of rounds.
     for (let i=0; i<roundsToPlay; i++) {
         // Get player's selection.
-        let playerSelection = prompt('What is your choice?');
+        let playerSelection = prompt('What is your choice?', 'rock');
         // Make playerSelection case insensitive by converting to lower case.
         playerSelection = playerSelection.toLowerCase();
-        // Ensure proper input by the player. If the playerSelection is NOT IN the gameOptions, continue the while loop.
+        // Ensure proper input by the player. If the playerSelection is NOT IN the gameOptions, initiate the while loop.
         while (!gameOptions.includes(playerSelection)) {
             // NOTE NOT TO DECLARE THE VARIABLE AGAIN (i.e. let playerSelection ...)!! I made that mistake which bugged the whole programme.
             playerSelection = prompt('Please choose rock, paper or scissors only!');
-            // Convert selection to lower case again so that the while loop conditions can be met.
+            // Convert selection to lower case again to standardise and match elements in the array.
             playerSelection = playerSelection.toLowerCase();
         }
         // Print out player's choice.
