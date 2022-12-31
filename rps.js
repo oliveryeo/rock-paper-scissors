@@ -8,7 +8,7 @@ const gameOptions = ['rock', 'paper', 'scissors'];
 let playerScore = 0;
 let computerScore = 0;
 
-game();
+playGame();
 
 
 // ------------------------------------ Functions --------------------------------------
@@ -67,7 +67,7 @@ function playRound(playerSelection, computerSelection) {
 }
 
 // Function that simulate a game of a specified number of rounds.
-function game() {
+function playGame() {
     // Loop through the specified number of rounds.
     for (let i=0; i<roundsToPlay; i++) {
         // Get player's selection and make it case insensitive.
