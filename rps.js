@@ -70,20 +70,19 @@ function playRound(playerSelection, computerSelection) {
 function game() {
     // Loop through the specified number of rounds.
     for (let i=0; i<roundsToPlay; i++) {
-        // Get player's selection.
+        // Get player's selection and make it case insensitive.
         let playerSelection = prompt('What is your choice?', 'rock');
-        // Make playerSelection case insensitive by converting to lower case.
         playerSelection = playerSelection.toLowerCase();
         // Ensure proper input by the player. If the playerSelection is NOT IN the gameOptions, initiate the while loop.
         while (!gameOptions.includes(playerSelection)) {
             // NOTE NOT TO DECLARE THE VARIABLE AGAIN (i.e. let playerSelection ...)!! I made that mistake which bugged the whole programme.
+            // Ensure case insensitivity again.
             playerSelection = prompt('Please choose rock, paper or scissors only!');
-            // Convert selection to lower case again to standardise and match elements in the array.
             playerSelection = playerSelection.toLowerCase();
         }
         // Print out player's choice.
         console.log(`The player's choice is ${playerSelection}`)
-        // Get computer's selection.
+        // Get computer's selection and also print out their choice (part of the function)
         const computerSelection = getComputerChoice();
         // Simulate a round.
         console.log(playRound(playerSelection, computerSelection));
