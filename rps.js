@@ -1,13 +1,17 @@
 // Initiate number of rounds for the game
 const roundsToPlay = 5;
+
+// Set up possible options to choose in the game
+const gameOptions = ['rock', 'paper', 'scissors'];
+
 // Initiate scores for the players
 let playerScore = 0;
 let computerScore = 0;
-// Set up possible options to choose in the game
-let gameOptions = ['rock', 'paper', 'scissors'];
 
 game();
 
+
+// ------------------------------------ Functions --------------------------------------
 function getComputerChoice() {
     // Randomize the integer value from 0-3 which indexes the rock paper scissors options array, which depicts the computer's choice.
     // This is done by multiplying the random number (0-1) by 3, which gets us a random number from 0-3 instead. CODE: (Math.random() * 3)
