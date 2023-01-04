@@ -36,25 +36,38 @@ function getComputerChoice() {
 function playRound(playerSelection, computerSelection) {
     // Create logic to choose who wins the rock paper scissors game.
     // For each victory, add the points to the respective player.
+    // A little bit ugly, but after every integer increment, check if max points and show the winner.
     if (playerSelection === 'rock') {
         if (computerSelection === 'rock') {
             return "TIE! Both players chose Rock!";
         } else if (computerSelection === 'scissors') {
             playerScoreInt++;
+            if ((playerScoreInt == maxPoints) || (computerScoreInt == maxPoints)) {
+                showWinner();
+            }
             return "PLAYER WIN! Rock beats Scissors!";
         } else if (computerSelection === 'paper') {
             computerScoreInt++;
+            if ((playerScoreInt == maxPoints) || (computerScoreInt == maxPoints)) {
+                showWinner();
+            }
             return "COMPUTER WIN! Paper beats Rock!";
         }
     }
     if (playerSelection === 'scissors') {
         if (computerSelection === 'rock') {
             computerScoreInt++;
+            if ((playerScoreInt == maxPoints) || (computerScoreInt == maxPoints)) {
+                showWinner();
+            }
             return "COMPUTER WIN! Rock beats Scissors!";
         } else if (computerSelection === 'scissors') {
             return "TIE! Both players chose Scissors!";
         } else if (computerSelection === 'paper') {
             playerScoreInt++;
+            if ((playerScoreInt == maxPoints) || (computerScoreInt == maxPoints)) {
+                showWinner();
+            }
             return "PLAYER WIN! Scissors beat Paper!";
         }
     }
@@ -62,11 +75,17 @@ function playRound(playerSelection, computerSelection) {
     if (playerSelection === 'paper') {
         if (computerSelection === 'rock') {
             playerScoreInt++;
+            if ((playerScoreInt == maxPoints) || (computerScoreInt == maxPoints)) {
+                showWinner();
+            }
             return "PLAYER WIN! Paper beats Rock!";
         } else if (computerSelection === 'scissors') {
             return "COMPUTER WIN! Scissors beat Paper!";
         } else if (computerSelection === 'paper') {
             computerScoreInt++;
+            if ((playerScoreInt == maxPoints) || (computerScoreInt == maxPoints)) {
+                showWinner();
+            }
             return "TIE! Both players chose Paper!";
         }
     }
@@ -82,10 +101,6 @@ function triggerRound(button) {
             buttons.forEach((button) => {
                 button.removeEventListener('click', playGame);
             })
-            
-            // Show the winner message only if the p element winner class does not exist (created in showWinner() function) → prevents all buttons from showing this message if already shown once.
-            if (!document.querySelector('p.winner')) showWinner();
-            
         } else {
             // Assign player selection → create p element → append to div results.
             const playerSelection = button.textContent.toLowerCase();
