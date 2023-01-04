@@ -17,11 +17,6 @@ const results = document.querySelector('div.results'); // Select the results cla
 // Upon clicking the respective button trigger a round of play
 buttons.forEach(triggerRound);
 
-// Find a way to abort the whole addevent listener once max points is reached
-
-
-// playGame();
-
 
 // ------------------------------------ Functions --------------------------------------
 function getComputerChoice() {
@@ -78,6 +73,7 @@ function playRound(playerSelection, computerSelection) {
 }
 
 // Assign the textContent to the playerSelection case-insensitive, assign computerChoice, play a round.
+// Created a function name for this one-time-use function for the purpose of removeEventListener.
 function triggerRound(button) {
     button.addEventListener('click', function playGame() {
         // Show winner if maxPoints reached. Disable the game.
@@ -87,7 +83,7 @@ function triggerRound(button) {
                 button.removeEventListener('click', playGame);
             })
             
-            // Show the winner message only if the p element winner class does not exist (found in showWinner() function)
+            // Show the winner message only if the p element winner class does not exist (created in showWinner() function) → prevents all buttons from showing this message if already shown once.
             if (!document.querySelector('p.winner')) showWinner();
             
         } else {
