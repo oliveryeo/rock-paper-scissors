@@ -87,7 +87,8 @@ function triggerRound(button) {
                 button.removeEventListener('click', playGame);
             })
             
-            showWinner();
+            // Show the winner message only if the p element winner class does not exist (found in showWinner() function)
+            if (!document.querySelector('p.winner')) showWinner();
             
         } else {
             // Assign player selection → create p element → append to div results.
@@ -125,6 +126,7 @@ function showWinner() {
     }
 
     const winner = document.createElement('p');
+    winner.classList.add('winner');
     winner.textContent = winnerText;
     scores.appendChild(winner);
 }
