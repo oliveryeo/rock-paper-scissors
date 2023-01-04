@@ -1,5 +1,5 @@
 // Initiate number of rounds for the game
-const roundsToPlay = 5;
+// const roundsToPlay = 5;
 
 // Set up possible options to choose in the game
 const gameOptions = ['rock', 'paper', 'scissors'];
@@ -8,7 +8,20 @@ const gameOptions = ['rock', 'paper', 'scissors'];
 let playerScore = 0;
 let computerScore = 0;
 
-playGame();
+// Select all buttons on the page
+const buttons = document.querySelectorAll('button');
+
+// Upon clicking the respective button, assign the textContent to the playerSelection case-insensitive, assign computerChoice, play a round.
+buttons.forEach((button) => {
+    button.addEventListener('click', (e) => {
+        const playerSelection = button.textContent.toLowerCase();
+        const computerChoice = getComputerChoice()
+        console.log(playRound(playerSelection, computerChoice));
+    })
+})
+
+
+// playGame();
 
 
 // ------------------------------------ Functions --------------------------------------
@@ -67,36 +80,36 @@ function playRound(playerSelection, computerSelection) {
 }
 
 // Function that simulate a game of a specified number of rounds.
-function playGame() {
-    // Loop through the specified number of rounds.
-    for (let i=0; i<roundsToPlay; i++) {
-        // Declare player selection variable
-        let playerSelection;
+// function playGame() {
+//     // Loop through the specified number of rounds.
+//     for (let i=0; i<roundsToPlay; i++) {
+//         // Declare player selection variable
+//         let playerSelection;
 
-        // do-while loop to capture player's selection and rectify any invalid inputs.
-        do {
-            // Get player's selection and make it case insensitive.
-            playerSelection = prompt('What is your choice? (rock, paper or scissors only)', 'rock');
-            playerSelection = playerSelection.toLowerCase();
-            // Ensure proper input by the player. If the playerSelection is NOT IN the gameOptions, initiate the while loop.
-        } while (!gameOptions.includes(playerSelection))
+//         // do-while loop to capture player's selection and rectify any invalid inputs.
+//         do {
+//             // Get player's selection and make it case insensitive.
+//             playerSelection = prompt('What is your choice? (rock, paper or scissors only)', 'rock');
+//             playerSelection = playerSelection.toLowerCase();
+//             // Ensure proper input by the player. If the playerSelection is NOT IN the gameOptions, initiate the while loop.
+//         } while (!gameOptions.includes(playerSelection))
 
-        // Print out player's choice.
-        console.log(`The player's choice is ${playerSelection}`)
-        // Get computer's selection and also print out their choice (part of the function)
-        const computerSelection = getComputerChoice();
-        // Simulate a round.
-        console.log(playRound(playerSelection, computerSelection));
-        // Report the scores for each player.
-        console.log(`The player's score is ${playerScore}`);
-        console.log(`The computer's score is ${computerScore}`);
-        // To add an empty line to see things clearer in console.
-        console.log('');
-    }
-    // At the end of the rounds simulation, report the winner.
-    if (playerScore > computerScore){
-        console.log('Congratulations! The player is the winner!');
-    } else {
-        console.log('Oh no... the computer is the winner!');
-    }
-}
+//         // Print out player's choice.
+//         console.log(`The player's choice is ${playerSelection}`)
+//         // Get computer's selection and also print out their choice (part of the function)
+//         const computerSelection = getComputerChoice();
+//         // Simulate a round.
+//         console.log(playRound(playerSelection, computerSelection));
+//         // Report the scores for each player.
+//         console.log(`The player's score is ${playerScore}`);
+//         console.log(`The computer's score is ${computerScore}`);
+//         // To add an empty line to see things clearer in console.
+//         console.log('');
+//     }
+//     // At the end of the rounds simulation, report the winner.
+//     if (playerScore > computerScore){
+//         console.log('Congratulations! The player is the winner!');
+//     } else {
+//         console.log('Oh no... the computer is the winner!');
+//     }
+// }
