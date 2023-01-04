@@ -38,36 +38,36 @@ function playRound(playerSelection, computerSelection) {
     // For each victory, add the points to the respective player.
     if (playerSelection === 'rock') {
         if (computerSelection === 'rock') {
-            return "It's a tie! Both players chose Rock!";
+            return "TIE! Both players chose Rock!";
         } else if (computerSelection === 'scissors') {
             playerScore++;
-            return "Player win! Rock beats Scissors!";
+            return "PLAYER WIN! Rock beats Scissors!";
         } else if (computerSelection === 'paper') {
             computerScore++;
-            return "Player lose... Paper beats Rock!";
+            return "COMPUTER WIN! Paper beats Rock!";
         }
     }
     if (playerSelection === 'scissors') {
         if (computerSelection === 'rock') {
             computerScore++;
-            return "Player lose... Rock beats Scissors!";
+            return "COMPUTER WIN! Rock beats Scissors!";
         } else if (computerSelection === 'scissors') {
-            return "It's a tie! Both players chose Scissors!";
+            return "TIE! Both players chose Scissors!";
         } else if (computerSelection === 'paper') {
             playerScore++;
-            return "Player win! Scissors beat Paper!";
+            return "PLAYER WIN! Scissors beat Paper!";
         }
     }
     
     if (playerSelection === 'paper') {
         if (computerSelection === 'rock') {
             playerScore++;
-            return "Player win! Paper beats Rock!";
+            return "PLAYER WIN! Paper beats Rock!";
         } else if (computerSelection === 'scissors') {
-            return "Player lose... Scissors beat Paper!";
+            return "COMPUTER WIN! Scissors beat Paper!";
         } else if (computerSelection === 'paper') {
             computerScore++;
-            return "It's a tie! Both players chose Paper!";
+            return "TIE! Both players chose Paper!";
         }
     }
 }
@@ -78,13 +78,13 @@ function triggerRound(button) {
         // Assign player selection → create p element → append to div results.
         const playerSelection = button.textContent.toLowerCase();
         const playerChoice = document.createElement('p');
-        playerChoice.textContent = `The player's choice is: ${playerSelection}`;
+        playerChoice.textContent = `The player's choice is: ${playerSelection.toUpperCase()}`;
         results.appendChild(playerChoice);
 
         // Assign computer's choice and append to div results.
         const computerSelection = getComputerChoice();
         const computerChoice = document.createElement('p');
-        computerChoice.textContent = `The computer's choice is: ${computerChoice}`;;
+        computerChoice.textContent = `The computer's choice is: ${computerSelection.toUpperCase()}`;;
         results.appendChild(computerChoice);
         
         // Get the round outcome, create a new p element, append to div text.
