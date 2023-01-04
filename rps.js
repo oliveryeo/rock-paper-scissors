@@ -11,25 +11,8 @@ let computerScore = 0;
 const buttons = document.querySelectorAll('button'); // Select all buttons on the page
 const results = document.querySelector('div.results'); // Select the text class
 
-// Upon clicking the respective button, assign the textContent to the playerSelection case-insensitive, assign computerChoice, play a round.
-buttons.forEach((button) => {
-    button.addEventListener('click', (e) => {
-        // Assign player selection → create p element → append to text
-        const playerSelection = button.textContent.toLowerCase();
-        playerChoice = document.createElement('p');
-        playerChoice.textContent = `The player's choice is: ${playerSelection}`;
-        results.appendChild(playerChoice);
-
-
-        const computerChoice = getComputerChoice();
-        
-        // Get the round outcome, create a new p element, append to div text.
-        outcomeText = playRound(playerSelection, computerChoice);
-        const outcome = document.createElement('p');
-        outcome.textContent = outcomeText;
-        results.appendChild(outcome);
-    })
-})
+// Upon clicking the respective button trigger a round of play
+buttons.forEach(triggerRound);
 
 
 // playGame();
@@ -44,12 +27,6 @@ function getComputerChoice() {
 
     // Extract the computer's choice by indexing.
     let computerChoice = gameOptions[computerInteger];
-
-    // Append the computer's choice text to div text.
-    choiceText = `The computer's choice is: ${computerChoice}`;
-    const choice = document.createElement('p');
-        choice.textContent = choiceText;
-        results.appendChild(choice);
 
     // Return the computer's choice.
     return computerChoice;
@@ -95,37 +72,60 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-// Function that simulate a game of a specified number of rounds.
-function playGame() {
-    // Loop through the specified number of rounds.
-    for (let i=0; i<roundsToPlay; i++) {
-        // Declare player selection variable
-        let playerSelection;
+// Assign the textContent to the playerSelection case-insensitive, assign computerChoice, play a round.
+function triggerRound(button) {
+    button.addEventListener('click', () => {
+        // Assign player selection → create p element → append to div results.
+        const playerSelection = button.textContent.toLowerCase();
+        const playerChoice = document.createElement('p');
+        playerChoice.textContent = `The player's choice is: ${playerSelection}`;
+        results.appendChild(playerChoice);
 
-        // do-while loop to capture player's selection and rectify any invalid inputs.
-        do {
-            // Get player's selection and make it case insensitive.
-            playerSelection = prompt('What is your choice? (rock, paper or scissors only)', 'rock');
-            playerSelection = playerSelection.toLowerCase();
-            // Ensure proper input by the player. If the playerSelection is NOT IN the gameOptions, initiate the while loop.
-        } while (!gameOptions.includes(playerSelection))
-
-        // Print out player's choice.
-        console.log(`The player's choice is ${playerSelection}`)
-        // Get computer's selection and also print out their choice (part of the function)
+        // Assign computer's choice and append to div results.
         const computerSelection = getComputerChoice();
-        // Simulate a round.
-        console.log(playRound(playerSelection, computerSelection));
-        // Report the scores for each player.
-        console.log(`The player's score is ${playerScore}`);
-        console.log(`The computer's score is ${computerScore}`);
-        // To add an empty line to see things clearer in console.
-        console.log('');
-    }
-    // At the end of the rounds simulation, report the winner.
-    if (playerScore > computerScore){
-        console.log('Congratulations! The player is the winner!');
-    } else {
-        console.log('Oh no... the computer is the winner!');
-    }
+        const computerChoice = document.createElement('p');
+        computerChoice.textContent = `The computer's choice is: ${computerChoice}`;;
+        results.appendChild(computerChoice);
+        
+        // Get the round outcome, create a new p element, append to div text.
+        outcomeText = playRound(playerSelection, computerSelection);
+        const outcome = document.createElement('p');
+        outcome.textContent = outcomeText;
+        results.appendChild(outcome);
+    })
 }
+
+// Function that simulate a game of a specified number of rounds.
+// function playGame() {
+//     // Loop through the specified number of rounds.
+//     for (let i=0; i<roundsToPlay; i++) {
+//         // Declare player selection variable
+//         let playerSelection;
+
+//         // do-while loop to capture player's selection and rectify any invalid inputs.
+//         do {
+//             // Get player's selection and make it case insensitive.
+//             playerSelection = prompt('What is your choice? (rock, paper or scissors only)', 'rock');
+//             playerSelection = playerSelection.toLowerCase();
+//             // Ensure proper input by the player. If the playerSelection is NOT IN the gameOptions, initiate the while loop.
+//         } while (!gameOptions.includes(playerSelection))
+
+//         // Print out player's choice.
+//         console.log(`The player's choice is ${playerSelection}`)
+//         // Get computer's selection and also print out their choice (part of the function)
+//         const computerSelection = getComputerChoice();
+//         // Simulate a round.
+//         console.log(playRound(playerSelection, computerSelection));
+//         // Report the scores for each player.
+//         console.log(`The player's score is ${playerScore}`);
+//         console.log(`The computer's score is ${computerScore}`);
+//         // To add an empty line to see things clearer in console.
+//         console.log('');
+//     }
+//     // At the end of the rounds simulation, report the winner.
+//     if (playerScore > computerScore){
+//         console.log('Congratulations! The player is the winner!');
+//     } else {
+//         console.log('Oh no... the computer is the winner!');
+//     }
+// }
