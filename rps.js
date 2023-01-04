@@ -1,18 +1,23 @@
-// Initiate number of rounds for the game
-// const roundsToPlay = 5;
+// Initiate the winning points for the game
+const maxPoints = 5;
 
 // Set up possible options to choose in the game
 const gameOptions = ['rock', 'paper', 'scissors'];
 
 // Initiate scores for the players
-let playerScore = 0;
-let computerScore = 0;
+let playerScoreInt = 0;
+let computerScoreInt = 0;
 
+const scores = document.querySelector('div.scores'); // Select scores class.
+const playerScore = document.querySelector('p.player-score'); // Select player score
+const computerScore = document.querySelector('p.computer-score'); // Select computer score
 const buttons = document.querySelectorAll('button'); // Select all buttons on the page
-const results = document.querySelector('div.results'); // Select the text class
+const results = document.querySelector('div.results'); // Select the results class
 
 // Upon clicking the respective button trigger a round of play
 buttons.forEach(triggerRound);
+
+// Find a way to abort the whole addevent listener once max points is reached
 
 
 // playGame();
@@ -40,33 +45,33 @@ function playRound(playerSelection, computerSelection) {
         if (computerSelection === 'rock') {
             return "TIE! Both players chose Rock!";
         } else if (computerSelection === 'scissors') {
-            playerScore++;
+            playerScoreInt++;
             return "PLAYER WIN! Rock beats Scissors!";
         } else if (computerSelection === 'paper') {
-            computerScore++;
+            computerScoreInt++;
             return "COMPUTER WIN! Paper beats Rock!";
         }
     }
     if (playerSelection === 'scissors') {
         if (computerSelection === 'rock') {
-            computerScore++;
+            computerScoreInt++;
             return "COMPUTER WIN! Rock beats Scissors!";
         } else if (computerSelection === 'scissors') {
             return "TIE! Both players chose Scissors!";
         } else if (computerSelection === 'paper') {
-            playerScore++;
+            playerScoreInt++;
             return "PLAYER WIN! Scissors beat Paper!";
         }
     }
     
     if (playerSelection === 'paper') {
         if (computerSelection === 'rock') {
-            playerScore++;
+            playerScoreInt++;
             return "PLAYER WIN! Paper beats Rock!";
         } else if (computerSelection === 'scissors') {
             return "COMPUTER WIN! Scissors beat Paper!";
         } else if (computerSelection === 'paper') {
-            computerScore++;
+            computerScoreInt++;
             return "TIE! Both players chose Paper!";
         }
     }
@@ -74,25 +79,54 @@ function playRound(playerSelection, computerSelection) {
 
 // Assign the textContent to the playerSelection case-insensitive, assign computerChoice, play a round.
 function triggerRound(button) {
-    button.addEventListener('click', () => {
-        // Assign player selection → create p element → append to div results.
-        const playerSelection = button.textContent.toLowerCase();
-        const playerChoice = document.createElement('p');
-        playerChoice.textContent = `The player's choice is: ${playerSelection.toUpperCase()}`;
-        results.appendChild(playerChoice);
+    button.addEventListener('click', function playGame() {
+        // Show winner if maxPoints reached. Disable the game.
+        if ((playerScoreInt == maxPoints) || (computerScoreInt == maxPoints)) {
+            // Remove the click event from ALL buttons once maxPoints is reached
+            buttons.forEach((button) => {
+                button.removeEventListener('click', playGame);
+            })
+            
+            showWinner();
+            
+        } else {
+            // Assign player selection → create p element → append to div results.
+            const playerSelection = button.textContent.toLowerCase();
+            const playerChoice = document.createElement('p');
+            playerChoice.textContent = `The player's choice is: ${playerSelection.toUpperCase()}`;
+            results.appendChild(playerChoice);
 
-        // Assign computer's choice and append to div results.
-        const computerSelection = getComputerChoice();
-        const computerChoice = document.createElement('p');
-        computerChoice.textContent = `The computer's choice is: ${computerSelection.toUpperCase()}`;;
-        results.appendChild(computerChoice);
-        
-        // Get the round outcome, create a new p element, append to div text.
-        outcomeText = playRound(playerSelection, computerSelection);
-        const outcome = document.createElement('p');
-        outcome.textContent = outcomeText;
-        results.appendChild(outcome);
+            // Assign computer's choice and append to div results.
+            const computerSelection = getComputerChoice();
+            const computerChoice = document.createElement('p');
+            computerChoice.textContent = `The computer's choice is: ${computerSelection.toUpperCase()}`;;
+            results.appendChild(computerChoice);
+            
+            // Get the round outcome, create a new p element, append to div text.
+            outcomeText = playRound(playerSelection, computerSelection);
+            const outcome = document.createElement('p');
+            outcome.textContent = outcomeText;
+            results.appendChild(outcome);
+
+            // Update the score board
+            playerScore.textContent = `Player's Score: ${playerScoreInt}`;
+            computerScore.textContent = `Computer's Score: ${computerScoreInt}`;
+        }
     })
+}
+
+// Show the winner after all rounds have been played
+function showWinner() {
+    let winnerText = '';
+    if (playerScoreInt > computerScoreInt){
+        winnerText = 'Congratulations! The PLAYER is the winner! Game is now disabled.';
+    } else {
+        winnerText = 'Oh no... the COMPUTER is the winner! Game is now disabled.';
+    }
+
+    const winner = document.createElement('p');
+    winner.textContent = winnerText;
+    scores.appendChild(winner);
 }
 
 // Function that simulate a game of a specified number of rounds.
